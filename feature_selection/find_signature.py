@@ -38,6 +38,15 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+from sklearn.tree import DecisionTreeClassifier
+clf = DecisionTreeClassifier()
+clf.fit(features_train,labels_train)
+pred = clf.predict(features_test)
 
+from sklearn.metrics import accuracy_score
+print "Accuracy of honest over fitting tree",accuracy_score(labels_test, pred)
 
-
+position,max_weight_of_feature = max(enumerate(clf.feature_importances_),key=lambda a:a[1])
+print "Maximum feature weight with position",position,max_weight_of_feature
+print "Word feature of max weight", vectorizer.get_feature_names()[position]
+print "Last word with weight > 0.2",[var for var in enumerate(clf.feature_importances_) if var[1] > 0.2]

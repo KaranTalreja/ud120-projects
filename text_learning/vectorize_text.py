@@ -52,14 +52,14 @@ def dump_data():
 			parsed_out_text = parseOutText(email)
 
 			### use str.replace() to remove any instances of the words
-			removewords = ["sara", "shackleton", "chris", "germani"]
+			removewords = ["sara", "shackleton", "chris", "germani", "sshacklensf","cgermannsf"]
 			for word in removewords:
 				parsed_out_text = parsed_out_text.replace(word,"")
 				
 			### append the text to word_data
 			word_data.append(parsed_out_text)
 			### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-			from_data.append(0 if name == "Sara" else 1) 
+			from_data.append(0 if name == "sara" else 1) 
 			email.close()
 
 	print "emails processed"
@@ -68,11 +68,12 @@ def dump_data():
 	print "Answer to Lesson 10 Quiz, content of word_data[152]", word_data[152]
 	pickle.dump( word_data, open("your_word_data.pkl", "w") )
 	pickle.dump( from_data, open("your_email_authors.pkl", "w") )
+	return word_data, from_data
 
 word_data = []
 from_data = []
 if os.path.isfile("your_email_authors.pkl") == False:
-	dump_data()
+	word_data, from_data = dump_data()
 else:
 	word_data = pickle.load(open("your_word_data.pkl", "r"))
 	from_data = pickle.load(open("your_email_authors.pkl", "r"))
