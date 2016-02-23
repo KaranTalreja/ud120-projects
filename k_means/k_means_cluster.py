@@ -50,12 +50,15 @@ def max_min_of_feature(feature,data_dict):
     print "Minimum value of",feature,min_v
     return max_v,min_v
 
+
 ### load in the dict of dicts containing all the data on each person in the dataset
 data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r") )
 ### there's an outlier--remove it! 
 data_dict.pop("TOTAL", 0)
-max_min_of_feature("exercised_stock_options",data_dict)
-max_min_of_feature("salary",data_dict)
+max_v,min_v = max_min_of_feature("exercised_stock_options",data_dict)
+print "Rescaled value of $1000000 in exercised_stock_options=", (1000000.0 - min_v)/(max_v - min_v)
+max_v,min_v = max_min_of_feature("salary",data_dict)
+print "Rescaled value of $200,000 in salary=", (200000.0 - min_v)/(max_v - min_v)
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
